@@ -4,10 +4,10 @@ type ButtonProps = {
 }
 
 
-export function Button(props: ButtonProps) {
+export function Button({ text }: ButtonProps) {
   return (
     <>
-      <button>{props.text}</button>
+      <button>{text}</button>
     </>
   )
 }

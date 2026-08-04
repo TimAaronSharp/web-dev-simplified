@@ -1,4 +1,4 @@
-
+import { Button } from "./Button.tsx";
 
 export function Header() {
   return (
@@ -10,7 +10,10 @@ export function Header() {
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-zinc-400 text-sm">Apr 6 - Apr 12</span>
-          <div className="flex items-center gap-3"></div>
+          <div className="flex items-center gap-3">
+            <Button text="Prev" />
+            <Button text="Next" />
+          </div>
         </div>
       </header>
     </>
