@@ -1,6 +1,6 @@
-import { HabitForm } from "./components/HabitForm.tsx";
-import { HabitList } from "./components/HabitList.tsx";
-import { Header } from "./components/Header";
+import { HabitForm } from "./components/habits/HabitForm.tsx";
+import { HabitList } from "./components/habits/HabitList.tsx";
+import { Header } from "./components/headers/Header.tsx";
 
 
 export default function App() {
