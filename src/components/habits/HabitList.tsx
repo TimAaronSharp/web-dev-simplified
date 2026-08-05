@@ -1,5 +1,6 @@
+import { HabitItem } from "./HabitItem.tsx";
 
-type Habit = {
+export type Habit = {
   id: number;
   name: string;
 }
@@ -17,7 +18,7 @@ export function HabitList() {
     <>
       <div className="flex flex-col gap-3">
         {habits.map(habit => (
-          <h2 key={habit.id}>{habit.name}</h2>
+          <HabitItem key={habit.id} habit={habit} />
         ))}
       </div>
     </>
