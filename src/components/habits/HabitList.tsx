@@ -7,8 +7,7 @@ export type Habit = {
 
 export function HabitList() {
   const habits: Habit[] = [
-    { id: 1, name: "Hi" },
-    { id: 2, name: "Bye" }
+    { id: 1, name: "Hi" }
   ];
 
   if (habits.length === 0) {

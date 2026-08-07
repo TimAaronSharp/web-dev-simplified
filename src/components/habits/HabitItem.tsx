@@ -1,6 +1,6 @@
 import { Button } from "../buttons/Button.tsx"
 import type { Habit } from "./HabitList.tsx"
-import { startOfWeek } from "date-fns"
+import { eachDayOfInterval, endOfWeek, format, isFuture, startOfWeek } from "date-fns"
 
 /*NOTE We pass down "habit" objects from HabitList to HabitItem as props.
 Props are passed down to a component as a single object. So the structure is
@@ -12,7 +12,15 @@ the habit.name property by only needing to type "name" within this component.
 property/object we are destructuring is of type "Habit", so that it will know
 that it contains both id: number and name: string properties. */
 export function HabitItem({ habit: { name } }: { habit: Habit }) {
-  const visibleDates = startOfWeek(new Date());
+
+  /*NOTE date-fns is a library that helps with working with dates inside JS.
+  weekStartsOn: sets the day of the week to start on. 0 (default) = Sunday,
+  1 = Monday, etc. */
+
+  const visibleDates = eachDayOfInterval({
+    start: startOfWeek(new Date(), { weekStartsOn: 1 }),
+    end: endOfWeek(new Date(), { weekStartsOn: 1 })
+  });
   return (
     <>
       <div className="rounded-xl bg-zinc-800 p-4 flex flex-col gap-3">
@@ -25,9 +33,9 @@ export function HabitItem({ habit: { name } }: { habit: Habit }) {
         </div>
         <div className="flex gap-1.5">
           {visibleDates.map(date => (
-            <Button key={date.toISOString()}>
-              <span className="font-medium">Mon</span>
-              <span className="font-medium">2</span>
+            <Button key={date.toISOString()} disabled={isFuture(date)}>
+              <span className="font-medium">{format(date, "EEE")}</span>
+              <span className="font-medium">{format(date, "d")}</span>
             </Button>
           ))}
         </div>
