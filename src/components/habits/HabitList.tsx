@@ -5,10 +5,11 @@ export type Habit = {
   name: string;
 }
 
-export function HabitList() {
-  const habits: Habit[] = [
-    { id: 1, name: "Hi" }
-  ];
+type HabitListProps = {
+  habits: Habit[];
+}
+
+export function HabitList({ habits }: HabitListProps) {
 
   if (habits.length === 0) {
     return <p className="text-center text-zinc-500 py-12">No habits yet. Add one to get started!</p>
