@@ -1,7 +1,7 @@
 import { HabitItem } from "./HabitItem.tsx";
 
 export type Habit = {
-  id: number;
+  id: string;
   name: string;
 }
 
