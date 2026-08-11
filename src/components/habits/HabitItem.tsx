@@ -11,7 +11,13 @@ the habit.name property by only needing to type "name" within this component.
 "{ habit: { name } }: { habit: Habit }" is telling TypeScript that the habit
 property/object we are destructuring is of type "Habit", so that it will know
 that it contains both id: number and name: string properties. */
-export function HabitItem({ habit: { name } }: { habit: Habit }) {
+
+type HabitItemProps = {
+  habit: Habit,
+  deleteHabit: (id: string) => void
+}
+
+export function HabitItem({ habit, deleteHabit }: HabitItemProps) {
 
   /*NOTE date-fns is a library that helps with working with dates inside JS.
   weekStartsOn: sets the day of the week to start on. 0 (default) = Sunday,
@@ -26,10 +32,10 @@ export function HabitItem({ habit: { name } }: { habit: Habit }) {
       <div className="rounded-xl bg-zinc-800 p-4 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div className="flex gap-3 items-center">
-            <span className="font-medium">{name}</span>
+            <span className="font-medium">{habit.name}</span>
             <span className="text-sm text-amber-400">🔥 3</span>
           </div>
-          <Button variant="ghost-destructive" className="text-sm">Delete</Button>
+          <Button onClick={() => deleteHabit(habit.id)} variant="ghost-destructive" className="text-sm">Delete</Button>
         </div>
         <div className="flex gap-1.5">
           {visibleDates.map(date => (
