@@ -8,10 +8,11 @@ export type Habit = {
 
 type HabitListProps = {
   habits: Habit[],
-  deleteHabit: (id: string) => void
+  deleteHabit: (id: string) => void,
+  toggleHabit: (id: string, date: Date) => void
 }
 
-export function HabitList({ habits, deleteHabit }: HabitListProps) {
+export function HabitList({ habits, deleteHabit, toggleHabit }: HabitListProps) {
 
   if (habits.length === 0) {
     return <p className="text-center text-zinc-500 py-12">No habits yet. Add one to get started!</p>
@@ -20,7 +21,7 @@ export function HabitList({ habits, deleteHabit }: HabitListProps) {
     <>
       <div className="flex flex-col gap-3">
         {habits.map(habit => (
-          <HabitItem deleteHabit={deleteHabit} key={habit.id} habit={habit} />
+          <HabitItem deleteHabit={deleteHabit} key={habit.id} habit={habit} toggleHabit={toggleHabit} />
         ))}
       </div>
     </>

@@ -14,10 +14,11 @@ that it contains both id: number and name: string properties. */
 
 type HabitItemProps = {
   habit: Habit,
-  deleteHabit: (id: string) => void
+  deleteHabit: (id: string) => void,
+  toggleHabit: (id: string, date: Date) => void
 }
 
-export function HabitItem({ habit, deleteHabit }: HabitItemProps) {
+export function HabitItem({ habit, deleteHabit, toggleHabit }: HabitItemProps) {
 
   /*NOTE date-fns is a library that helps with working with dates inside JS.
   weekStartsOn: sets the day of the week to start on. 0 (default) = Sunday,
@@ -39,7 +40,7 @@ export function HabitItem({ habit, deleteHabit }: HabitItemProps) {
         </div>
         <div className="flex gap-1.5">
           {visibleDates.map(date => (
-            <Button className="flex flex-1 flex-col items-center gap-0.5 rounded-lg text-xs" key={date.toISOString()} disabled={isFuture(date)} variant={habit.completions.some(d => isSameDay(date, d)) ? "primary" : "secondary"}>
+            <Button className="flex flex-1 flex-col items-center gap-0.5 rounded-lg text-xs" key={date.toISOString()} disabled={isFuture(date)} onClick={() => toggleHabit(habit.id, date)} variant={habit.completions.some(d => isSameDay(date, d)) ? "primary" : "secondary"}>
               <span className="font-medium">{format(date, "EEE")}</span>
               <span className="font-medium">{format(date, "d")}</span>
             </Button>
