@@ -1,25 +1,10 @@
 import { isSameDay } from "date-fns";
-import { createContext, useState, type ReactNode } from "react";
-
-export type Habit = {
-  id: string,
-  name: string,
-  completions: Date[]
-}
-
-type Context = {
-  habits: Habit[],
-  addHabit: (name: string) => void,
-  deleteHabit: (id: string) => void,
-  toggleHabit: (id: string, date: Date) => void
-}
+import { useState, type ReactNode } from "react";
+import { HabitContext, type Habit } from "./useHabits.ts";
 
 type HabitProviderProps = {
   children: ReactNode
 }
-
-export const HabitContext = createContext<null | Context>(null)
-
 
 export function HabitProvider({ children }: HabitProviderProps) {
 

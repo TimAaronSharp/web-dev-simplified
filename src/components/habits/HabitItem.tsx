@@ -1,5 +1,5 @@
+import { useHabits, type Habit } from "../../context/useHabits.ts"
 import { Button } from "../buttons/Button.tsx"
-import type { Habit } from "./HabitList.tsx"
 import { eachDayOfInterval, endOfWeek, format, isFuture, isSameDay, startOfWeek, subDays } from "date-fns"
 
 /*NOTE We pass down "habit" objects from HabitList to HabitItem as props.
@@ -13,9 +13,7 @@ property/object we are destructuring is of type "Habit", so that it will know
 that it contains both id: number and name: string properties. */
 
 type HabitItemProps = {
-  habit: Habit,
-  deleteHabit: (id: string) => void,
-  toggleHabit: (id: string, date: Date) => void
+  habit: Habit
 }
 
 function getStreak(completions: Date[]) {
@@ -30,7 +28,8 @@ function getStreak(completions: Date[]) {
   return streak;
 }
 
-export function HabitItem({ habit, deleteHabit, toggleHabit }: HabitItemProps) {
+export function HabitItem({ habit }: HabitItemProps) {
+  const { deleteHabit, toggleHabit } = useHabits();
 
   /*NOTE date-fns is a library that helps with working with dates inside JS.
   weekStartsOn: sets the day of the week to start on. 0 (default) = Sunday,

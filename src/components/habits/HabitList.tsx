@@ -1,12 +1,9 @@
+import { useHabits } from "../../context/useHabits.ts";
 import { HabitItem } from "./HabitItem.tsx";
 
-type HabitListProps = {
-  habits: Habit[],
-  deleteHabit: (id: string) => void,
-  toggleHabit: (id: string, date: Date) => void
-}
 
-export function HabitList({ habits, deleteHabit, toggleHabit }: HabitListProps) {
+export function HabitList() {
+  const { habits } = useHabits()
 
   if (habits.length === 0) {
     return <p className="text-center text-zinc-500 py-12">No habits yet. Add one to get started!</p>
@@ -15,7 +12,7 @@ export function HabitList({ habits, deleteHabit, toggleHabit }: HabitListProps) 
     <>
       <div className="flex flex-col gap-3">
         {habits.map(habit => (
-          <HabitItem deleteHabit={deleteHabit} key={habit.id} habit={habit} toggleHabit={toggleHabit} />
+          <HabitItem key={habit.id} habit={habit} />
         ))}
       </div>
     </>
