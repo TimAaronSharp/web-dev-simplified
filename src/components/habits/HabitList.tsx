@@ -2,7 +2,8 @@ import { HabitItem } from "./HabitItem.tsx";
 
 export type Habit = {
   id: string,
-  name: string
+  name: string,
+  completions: Date[]
 }
 
 type HabitListProps = {

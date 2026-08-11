@@ -1,6 +1,6 @@
 import { Button } from "../buttons/Button.tsx"
 import type { Habit } from "./HabitList.tsx"
-import { eachDayOfInterval, endOfWeek, format, isFuture, startOfWeek } from "date-fns"
+import { eachDayOfInterval, endOfWeek, format, isFuture, isSameDay, startOfWeek } from "date-fns"
 
 /*NOTE We pass down "habit" objects from HabitList to HabitItem as props.
 Props are passed down to a component as a single object. So the structure is
@@ -39,7 +39,7 @@ export function HabitItem({ habit, deleteHabit }: HabitItemProps) {
         </div>
         <div className="flex gap-1.5">
           {visibleDates.map(date => (
-            <Button className="flex flex-1 flex-col items-center gap-0.5 rounded-lg text-xs" key={date.toISOString()} disabled={isFuture(date)}>
+            <Button className="flex flex-1 flex-col items-center gap-0.5 rounded-lg text-xs" key={date.toISOString()} disabled={isFuture(date)} variant={habit.completions.some(d => isSameDay(date, d)) ? "primary" : "secondary"}>
               <span className="font-medium">{format(date, "EEE")}</span>
               <span className="font-medium">{format(date, "d")}</span>
             </Button>

@@ -2,17 +2,31 @@ import { useState } from "react";
 import { HabitForm } from "./components/habits/HabitForm.tsx";
 import { HabitList, type Habit } from "./components/habits/HabitList.tsx";
 import { Header } from "./components/headers/Header.tsx";
+import { isSameDay } from "date-fns";
 
 
 export default function App() {
   const [habits, setHabits] = useState<Habit[]>([]);
 
   function addHabit(name: string) {
-    setHabits(curr => [...curr, { id: crypto.randomUUID(), name }]);
+    setHabits(curr => ([...curr, { id: crypto.randomUUID(), name, completions: [] }]));
   }
 
   function deleteHabit(id: string) {
     setHabits(curr => curr.filter(h => h.id !== id));
+  }
+
+  function toggleHabit(id: string, date: Date) {
+    setHabits(curr => (
+      curr.map(h => {
+        if (h.id !== id) return h;
+
+        const alreadyDone = h.completions.some(c => isSameDay(c, date));
+        const completions = alreadyDone ? h.completions.filter(c => !isSameDay(c, date)) : [...h.completions, date]
+
+        return { ...h, completions }
+      })
+    ))
   }
 
   return (
