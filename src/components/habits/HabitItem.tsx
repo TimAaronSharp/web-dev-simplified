@@ -1,6 +1,6 @@
 import { useHabits, type Habit } from "../../context/useHabits.ts"
 import { Button } from "../buttons/Button.tsx"
-import { eachDayOfInterval, endOfWeek, format, isFuture, isSameDay, startOfWeek, subDays } from "date-fns"
+import { format, isFuture, isSameDay, subDays } from "date-fns"
 
 /*NOTE We pass down "habit" objects from HabitList to HabitItem as props.
 Props are passed down to a component as a single object. So the structure is
@@ -13,7 +13,8 @@ property/object we are destructuring is of type "Habit", so that it will know
 that it contains both id: number and name: string properties. */
 
 type HabitItemProps = {
-  habit: Habit
+  habit: Habit,
+  visibleDates: Date[]
 }
 
 function getStreak(completions: Date[]) {
@@ -28,17 +29,12 @@ function getStreak(completions: Date[]) {
   return streak;
 }
 
-export function HabitItem({ habit }: HabitItemProps) {
+export function HabitItem({ habit, visibleDates }: HabitItemProps) {
   const { deleteHabit, toggleHabit } = useHabits();
 
   /*NOTE date-fns is a library that helps with working with dates inside JS.
   weekStartsOn: sets the day of the week to start on. 0 (default) = Sunday,
   1 = Monday, etc. */
-
-  const visibleDates = eachDayOfInterval({
-    start: startOfWeek(new Date(), { weekStartsOn: 1 }),
-    end: endOfWeek(new Date(), { weekStartsOn: 1 })
-  });
   const streak = getStreak(habit.completions);
 
   return (
